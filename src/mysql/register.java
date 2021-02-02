@@ -20,19 +20,14 @@ import javax.swing.JPasswordField;
 
 
 /*
- * Author
- * Anh Tran
- * 2021
+ * @author Anh Tran
+ * 
+ * Description:
+ * Create register UI, create user to add to database
  */
 
 
-/*
- * To Do:
- * Hash password with PBKDF2
- * salt?
- */
-
-public class register extends JFrame 
+public class Register extends JFrame 
 {
 
 	private JPanel contentPane;
@@ -51,7 +46,7 @@ public class register extends JFrame
 			{
 				try 
 				{
-					register frame = new register();
+					Register frame = new Register();
 					frame.setVisible(true);
 				} 
 				catch (Exception e) 
@@ -65,7 +60,7 @@ public class register extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public register() 
+	public Register() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -113,7 +108,7 @@ public class register extends JFrame
 					//add user to the database
 					PreparedStatement prepState = connect.prepareStatement("insert into users(username, password) values(?, ?)");
 					prepState.setString(1, username_textField.getText());
-					prepState.setString(2, passwordField.getPassword());
+					//prepState.setString(2, passwordField.getPassword());
 					
 					int execute_value = prepState.executeUpdate();
 					if(execute_value > 0)

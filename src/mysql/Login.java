@@ -13,6 +13,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.sql.*;
 
+
+
+/*
+ * @author Anh Tran
+ * 
+ * Description:
+ * Create Login UI, authenticate user from database
+ */
+
 public class Login extends JFrame {
 
 	private JPanel contentPane;
