@@ -24,6 +24,14 @@ import javax.swing.JPasswordField;
  * Anh Tran
  * 2021
  */
+
+
+/*
+ * To Do:
+ * Hash password with PBKDF2
+ * salt?
+ */
+
 public class register extends JFrame 
 {
 
