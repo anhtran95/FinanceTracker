@@ -102,59 +102,56 @@ public class Register extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{ 
-				acceptBlock:
+				try 
 				{
-					try 
+					
+					//create binary hashed-salt password
+					byte[] salt = EncryptionPBKDF2.salt();
+					String passwordStr = String.copyValueOf(passwordField.getPassword());
+					byte[] hash = EncryptionPBKDF2.hash(passwordStr, salt);
+					
+					String saltStr = Base64.getEncoder().encodeToString(salt);
+					String hashStr = Base64.getEncoder().encodeToString(hash);
+					
+					//connect to database
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
+					
+					//add user to the database
+					PreparedStatement prepState = connect.prepareStatement("insert into users(username, password, salt) values(?, ?, ?)");
+					prepState.setString(1, username_textField.getText());
+					prepState.setString(2, hashStr);
+					prepState.setString(3, saltStr);
+					
+					int execute_value = prepState.executeUpdate();
+					if(execute_value > 0)
 					{
-						
-						//create binary hashed-salt password
-						byte[] salt = EncryptionPBKDF2.salt();
-						String passwordStr = String.copyValueOf(passwordField.getPassword());
-						byte[] hash = EncryptionPBKDF2.hash(passwordStr, salt);
-						
-						String saltStr = Base64.getEncoder().encodeToString(salt);
-						String hashStr = Base64.getEncoder().encodeToString(hash);
-						
-						//connect to database
-						Class.forName("com.mysql.cj.jdbc.Driver");
-						Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
-						
-						//add user to the database
-						PreparedStatement prepState = connect.prepareStatement("insert into users(username, password, salt) values(?, ?, ?)");
-						prepState.setString(1, username_textField.getText());
-						prepState.setString(2, hashStr);
-						prepState.setString(3, saltStr);
-						
-						int execute_value = prepState.executeUpdate();
-						if(execute_value > 0)
-						{
-							System.out.println("Register done successfully...");
-							JOptionPane.showMessageDialog(null, "Register Successful");
-							
-						}
-						else
-						{
-							System.out.println("Register failed...");
-							JOptionPane.showMessageDialog(null, "Register Failed");
-						}
-					}
-					//SQL errors
-					catch(SQLException sqlEx)
-					{
-						System.out.println(sqlEx);
-						System.out.println(sqlEx.getErrorCode());
-						
-						if(sqlEx.getErrorCode() == MYSQL_DUPLICATE_ERROR)
-						{
-							JOptionPane.showMessageDialog(null, "Username is taken");
-						}
+						System.out.println("Register done successfully...");
+						JOptionPane.showMessageDialog(null, "Register Successful");
 						
 					}
-					//all other errors
-					catch(Exception exp)
+					else
 					{
-						System.out.println(exp);
+						System.out.println("Register failed...");
+						JOptionPane.showMessageDialog(null, "Register Failed");
 					}
+				}
+				//SQL errors
+				catch(SQLException sqlEx)
+				{
+					System.out.println(sqlEx);
+					System.out.println(sqlEx.getErrorCode());
+					
+					if(sqlEx.getErrorCode() == MYSQL_DUPLICATE_ERROR)
+					{
+						JOptionPane.showMessageDialog(null, "Username is taken");
+					}
+					
+				}
+				//all other errors
+				catch(Exception exp)
+				{
+					System.out.println(exp);
 				}
 			}
 		});
