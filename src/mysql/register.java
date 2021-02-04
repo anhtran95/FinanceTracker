@@ -27,6 +27,7 @@ import javax.swing.JPasswordField;
  * 
  * Description:
  * Create register UI, create user to add to database
+ * Hashing password and store salt
  */
 
 
@@ -35,8 +36,8 @@ public class Register extends JFrame
 	private static final int MYSQL_DUPLICATE_ERROR = 1062;
 	
 	//private JPanel contentPane;
-	private JTextField username_textField;
-	private JPasswordField passwordField;
+	//private JTextField username_textField;
+	//private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -88,12 +89,12 @@ public class Register extends JFrame
 		lblPassword.setBounds(12, 121, 98, 31);
 		contentPane.add(lblPassword);
 		
-		username_textField = new JTextField();
+		JTextField username_textField = new JTextField();
 		username_textField.setBounds(122, 77, 266, 31);
 		contentPane.add(username_textField);
 		username_textField.setColumns(10);
 		
-		passwordField = new JPasswordField();
+		JPasswordField passwordField = new JPasswordField();
 		passwordField.setBounds(122, 121, 266, 31);
 		contentPane.add(passwordField);
 		
@@ -104,7 +105,9 @@ public class Register extends JFrame
 			{ 
 				try 
 				{
-					
+					DebugHelper.getCurrentLine();
+					System.out.println(Register.class.getResource("Register"));
+					DebugHelper.getDirPath();
 					//create binary hashed-salt password
 					byte[] salt = PBKDF2WithHmacSHA512.salt();
 					String passwordStr = String.copyValueOf(passwordField.getPassword());

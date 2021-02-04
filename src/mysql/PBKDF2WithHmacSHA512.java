@@ -14,7 +14,7 @@ import javax.crypto.spec.PBEKeySpec;
  * 
  * Description:
  * PBKDF2 with HmacSHA512 password cryptography in Java.
- * Hash + salt user's password and add salt to database
+ * Hash + salt user's password
  * 
  */
 
@@ -61,11 +61,21 @@ public class PBKDF2WithHmacSHA512
 	 * @throws NoSuchAlgorithmException
 	 *             If SHA1PRNG does not exist on the system.
 	 */
-	public static byte[] salt() throws NoSuchAlgorithmException
+	public static byte[] salt()
 	{
 		final byte[] salt = new byte[16];
-		SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
+		try 
+		{
+			SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
+			return salt;
+		}
+		catch(NoSuchAlgorithmException exp)
+		{
+			System.out.print(exp);
+		}
+		
 		return salt;
+		
 	}
 	
 	
