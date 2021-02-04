@@ -24,7 +24,7 @@ import java.sql.*;
 
 public class Login extends JFrame {
 
-	private JPanel contentPane;
+	//private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 
@@ -50,7 +50,7 @@ public class Login extends JFrame {
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 376);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
