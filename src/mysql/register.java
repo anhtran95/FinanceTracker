@@ -105,9 +105,6 @@ public class Register extends JFrame
 			{ 
 				try 
 				{
-					DebugHelper.getCurrentLine();
-					System.out.println(Register.class.getResource("Register"));
-					DebugHelper.getDirPath();
 					//create binary hashed-salt password
 					byte[] salt = PBKDF2WithHmacSHA512.salt();
 					String passwordStr = String.copyValueOf(passwordField.getPassword());
@@ -148,6 +145,7 @@ public class Register extends JFrame
 					if(sqlEx.getErrorCode() == MYSQL_DUPLICATE_ERROR)
 					{
 						JOptionPane.showMessageDialog(null, "Username is taken");
+						DebugHelper.printDebugLocation("Register.java");
 					}
 					
 				}
@@ -155,6 +153,7 @@ public class Register extends JFrame
 				catch(Exception exp)
 				{
 					System.out.println(exp);
+					DebugHelper.printDebugLocation("Register.java");
 				}
 			}
 		});
