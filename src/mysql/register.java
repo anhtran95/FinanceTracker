@@ -106,9 +106,9 @@ public class Register extends JFrame
 				{
 					
 					//create binary hashed-salt password
-					byte[] salt = EncryptionPBKDF2.salt();
+					byte[] salt = PBKDF2WithHmacSHA512.salt();
 					String passwordStr = String.copyValueOf(passwordField.getPassword());
-					byte[] hash = EncryptionPBKDF2.hash(passwordStr, salt);
+					byte[] hash = PBKDF2WithHmacSHA512.hash(passwordStr, salt);
 					
 					String saltStr = Base64.getEncoder().encodeToString(salt);
 					String hashStr = Base64.getEncoder().encodeToString(hash);

@@ -18,16 +18,16 @@ import javax.crypto.spec.PBEKeySpec;
  * 
  */
 
-public class EncryptionPBKDF2 
+public class PBKDF2WithHmacSHA512 
 {
 	
-	private static final String ALGORITHM = 		EncryptionPBKDF2.class.getSimpleName();
+	private static final String ALGORITHM = 		PBKDF2WithHmacSHA512.class.getSimpleName();
 	private static final int ITERATION_COUNT = 		1000;	//bigger the number, takes longer to generate a key
 	private static final int KEY_LENGTH = 			64;		//length of derive key
 	
 	
-	//Private constructor to avoid instantiated
-	private EncryptionPBKDF2() 
+	//Private constructor to avoid instantiated	
+	private PBKDF2WithHmacSHA512() 
 	{
 		throw new AssertionError();
 	}
@@ -64,7 +64,7 @@ public class EncryptionPBKDF2
 	public static byte[] salt() throws NoSuchAlgorithmException
 	{
 		final byte[] salt = new byte[16];
-		SecureRandom.getInstance(ALGORITHM).nextBytes(salt);
+		SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
 		return salt;
 	}
 	
