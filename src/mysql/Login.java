@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -33,13 +35,18 @@ public class Login extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					Login frame = new Login();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -68,44 +75,100 @@ public class Login extends JFrame {
 		lblUsername.setBounds(12, 67, 129, 41);
 		contentPane.add(lblUsername);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(123, 67, 297, 41);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		JTextField field_username = new JTextField();
+		field_username.setBounds(123, 67, 297, 41);
+		contentPane.add(field_username);
+		field_username.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblPassword.setBounds(12, 121, 129, 41);
 		contentPane.add(lblPassword);
 		
-		JTextField textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(123, 124, 297, 41);
-		contentPane.add(textField_1);
+		JTextField field_password = new JTextField();
+		field_password.setColumns(10);
+		field_password.setBounds(123, 124, 297, 41);
+		contentPane.add(field_password);
 		
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.setBounds(12, 195, 129, 41);
-		contentPane.add(btnNewButton);
+		JButton btn_login = new JButton("Login");
+		btn_login.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				try 
+				{
+					//check database for user
+					Connection connect = DatabaseHelper.createConnection();
+					PreparedStatement prepState = connect.prepareStatement("select * from users where username = ?");
+					prepState.setString(1, field_username.getText());
+					ResultSet results = prepState.executeQuery();
+					
+					//user exist
+					if(results.next())
+					{
+						//compare password
+						String db_password = results.getString(3);
+						String db_salt = results.getString(4);
+						String input_password = field_password.getText();
+						
+						
+						
+						
+						
+						
+					}
+					
+				}
+				//SQL errors
+				catch(SQLException sqlEx)
+				{
+					System.out.println(sqlEx);
+					System.out.println(sqlEx.getErrorCode());
+					
+					if(sqlEx.getErrorCode() == DatabaseHelper.MYSQL_DUPLICATE_ERROR)
+					{
+						JOptionPane.showMessageDialog(null, "Username is taken");
+						DebugHelper.getCurrentLine();
+						DebugHelper.getDirPath("Login.java");
+					}
+					
+				}
+				//all other errors
+				catch(Exception exp)
+				{
+					System.out.println(exp);
+					DebugHelper.getCurrentLine();
+					DebugHelper.getDirPath("Login.java");
+				}
+			}
+		});
+		btn_login.setBounds(12, 195, 129, 41);
+		contentPane.add(btn_login);
 		
-		JButton btnQuit = new JButton("Quit");
-		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JButton btn_quit = new JButton("Quit");
+		btn_quit.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				System.exit(0);
 			}
 		});
-		btnQuit.setBounds(294, 195, 129, 41);
-		contentPane.add(btnQuit);
+		btn_quit.setBounds(294, 195, 129, 41);
+		contentPane.add(btn_quit);
 		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton btn_register = new JButton("Register");
+		btn_register.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				dispose();
 				Register register_window = new Register();
 				register_window.setVisible(true);
 			}
 		});
 		
-		btnRegister.setBounds(153, 195, 129, 41);
-		contentPane.add(btnRegister);
+		btn_register.setBounds(153, 195, 129, 41);
+		contentPane.add(btn_register);
 	}
 }

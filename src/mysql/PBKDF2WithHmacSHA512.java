@@ -72,7 +72,8 @@ public class PBKDF2WithHmacSHA512
 		catch(NoSuchAlgorithmException exp)
 		{
 			System.out.print(exp);
-			DebugHelper.printDebugLocation("PBKDF2WithHmacSHA512.java");
+			DebugHelper.getCurrentLine();
+			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
 		}
 		
 		return salt;
@@ -150,7 +151,8 @@ public class PBKDF2WithHmacSHA512
 		catch(Exception e)
 		{
 			System.out.println(e);
-			DebugHelper.printDebugLocation("PBKDF2WithHmacSHA512.java");
+			DebugHelper.getCurrentLine();
+			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
 		}
 		
 		return passCompare;

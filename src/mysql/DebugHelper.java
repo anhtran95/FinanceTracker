@@ -2,6 +2,14 @@ package mysql;
 
 import java.io.File;
 
+
+/* @author Anh Tran
+ * 
+ * Description:
+ * Help with debug throughout
+ */
+
+
 public class DebugHelper {
 
 	//Private constructor to avoid instantiated	
@@ -38,19 +46,5 @@ public class DebugHelper {
 			System.out.println(e);
 			System.out.println("DebugHelper: Error printing out absolute path for current directory.");
 		}
-	}
-	
-	
-	/**
-	 * print line and absolute path given file name
-	 * 
-	 * @param addr
-	 * 			file name
-	 */
-	public static void printDebugLocation(final String addr)
-	{
-		DebugHelper.getCurrentLine();
-		DebugHelper.getDirPath(addr);
-		
 	}
 }
