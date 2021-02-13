@@ -110,10 +110,13 @@ public class Register extends JFrame
 					String passwordStr = String.copyValueOf(field_password.getPassword());
 					byte[] hash = PBKDF2WithHmacSHA512.hash(passwordStr, salt);
 					
-					String saltStr = Base64.getEncoder().encodeToString(salt);
-					String hashStr = Base64.getEncoder().encodeToString(hash);
+//					String saltStr = Base64.getEncoder().encodeToString(salt);
+//					String hashStr = Base64.getEncoder().encodeToString(hash);
 					
-					//connect to database
+					String saltStr = PBKDF2WithHmacSHA512.byteConvertToString(salt);
+					String hashStr = PBKDF2WithHmacSHA512.byteConvertToString(hash);
+					
+					//create user
 //					Class.forName("com.mysql.cj.jdbc.Driver");
 //					Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
 					Connection connect = DatabaseHelper.createConnection();
@@ -127,7 +130,7 @@ public class Register extends JFrame
 					int execute_value = prepState.executeUpdate();
 					if(execute_value > 0)
 					{
-						System.out.println("Register done successfully...");
+						System.out.println("Register successful...");
 						JOptionPane.showMessageDialog(null, "Register Successful");
 						
 					}
@@ -137,26 +140,29 @@ public class Register extends JFrame
 						JOptionPane.showMessageDialog(null, "Register Failed");
 					}
 				}
-				//SQL errors
 				catch(SQLException sqlEx)
 				{
-					System.out.println(sqlEx);
-					System.out.println(sqlEx.getErrorCode());
-					
 					if(sqlEx.getErrorCode() == DatabaseHelper.MYSQL_DUPLICATE_ERROR)
 					{
 						JOptionPane.showMessageDialog(null, "Username is taken");
+						System.out.println("Username already exist...");
 						DebugHelper.getCurrentLine();
 						DebugHelper.getDirPath("Register.java");
 					}
 					
+					System.out.println("Database error...");
+					System.out.println(sqlEx);
+					System.out.println(sqlEx.getErrorCode());
+					
+					
+					
 				}
-				//all other errors
 				catch(Exception exp)
 				{
-					System.out.println(exp);
 					DebugHelper.getCurrentLine();
 					DebugHelper.getDirPath("Register.java");
+					System.out.println(exp);
+					
 				}
 			}
 		});

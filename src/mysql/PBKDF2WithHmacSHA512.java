@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
+import java.util.Base64;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -71,13 +72,13 @@ public class PBKDF2WithHmacSHA512
 		}
 		catch(NoSuchAlgorithmException exp)
 		{
-			System.out.print(exp);
+			System.out.println("Failed to get salt...");
 			DebugHelper.getCurrentLine();
 			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
+			System.out.print(exp);
 		}
 		
 		return salt;
-		
 	}
 	
 	
@@ -150,12 +151,28 @@ public class PBKDF2WithHmacSHA512
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			System.out.println("Failed to perform algorithm...");
 			DebugHelper.getCurrentLine();
 			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
+			System.out.println(e);
+			
 		}
 		
 		return passCompare;
+		
+	}
+	
+	
+	/**
+	 * Convert from byte[] to string
+	 * 
+	 * @param binary
+	 * 				byte array that needs to convert to string
+	 * @return
+	 */
+	public static String byteToString(final byte[] binary)
+	{
+		return Base64.getEncoder().encodeToString(binary);
 		
 	}
 }

@@ -6,7 +6,7 @@ import java.sql.*;
 /* @author Anh Tran
  * 
  * Description:
- * Help connect to database
+ * Helper functions with connection to database
  * 
  */
 
@@ -24,28 +24,30 @@ public class DatabaseHelper
 		throw new AssertionError();
 	}	
 	
+	
+	//return a Connection to database
 	public static Connection createConnection()
 	{
 		Connection connectDb = null;
 		
 		try
 		{
-			//connect to database
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connectDb = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
+			System.out.println("Connect to database successful...");
 			return connectDb;
 		}
-		//SQL error
 		catch(SQLException sqlEx)
 		{
+			System.out.println("Failed to connect to database...");
 			System.out.println(sqlEx);
 			System.out.println(sqlEx.getErrorCode());
 			DebugHelper.getCurrentLine();
 			DebugHelper.getDirPath("DatabaseHelper.java");
 		}
-		//all other errors
 		catch(Exception exp)
 		{
+			System.out.println("Failed to connect to database...");
 			System.out.println(exp);
 			DebugHelper.getCurrentLine();
 			DebugHelper.getDirPath("DatabaseHelper.java");

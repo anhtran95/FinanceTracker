@@ -27,6 +27,7 @@ public class DebugHelper {
 		System.out.println("Line: " + Thread.currentThread().getStackTrace()[2].getLineNumber());
 	}
 	
+	
 	/**
 	 * print absolute path for given file name
 	 * 
@@ -43,8 +44,8 @@ public class DebugHelper {
 		}
 		catch(Exception e)
 		{
+			System.out.println("Failed to print absolute path...");
 			System.out.println(e);
-			System.out.println("DebugHelper: Error printing out absolute path for current directory.");
 		}
 	}
 }

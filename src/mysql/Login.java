@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.sql.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 
 
@@ -27,6 +28,7 @@ import java.awt.event.ActionEvent;
  */
 
 public class Login extends JFrame {
+	private JPasswordField field_password;
 
 	//private JPanel contentPane;
 	//private JTextField textField;
@@ -85,11 +87,6 @@ public class Login extends JFrame {
 		lblPassword.setBounds(12, 121, 129, 41);
 		contentPane.add(lblPassword);
 		
-		JTextField field_password = new JTextField();
-		field_password.setColumns(10);
-		field_password.setBounds(123, 124, 297, 41);
-		contentPane.add(field_password);
-		
 		JButton btn_login = new JButton("Login");
 		btn_login.addActionListener(new ActionListener() 
 		{
@@ -107,10 +104,14 @@ public class Login extends JFrame {
 					//user exist
 					if(results.next())
 					{
+						System.out.println("Checking password for user: " + results.getString(2));
+						
 						//compare password
 						String db_password = results.getString(3);
 						String db_salt = results.getString(4);
-						String input_password = field_password.getText();
+						String input_password = String.valueOf(field_password.getPassword());
+						
+						//questions: store byte[] as varbinary/blob/varchar
 						
 						
 						
@@ -118,23 +119,26 @@ public class Login extends JFrame {
 						
 						
 					}
+					else
+					{
+						System.out.println("User: " + field_username.getText() + " do not exist...");
+						JOptionPane.showMessageDialog(null, "User: " + field_username.getText() + " do not exist...");
+					}
 					
 				}
-				//SQL errors
 				catch(SQLException sqlEx)
 				{
-					System.out.println(sqlEx);
-					System.out.println(sqlEx.getErrorCode());
-					
 					if(sqlEx.getErrorCode() == DatabaseHelper.MYSQL_DUPLICATE_ERROR)
 					{
 						JOptionPane.showMessageDialog(null, "Username is taken");
+						System.out.println("Username already exist");
 						DebugHelper.getCurrentLine();
 						DebugHelper.getDirPath("Login.java");
 					}
 					
+					System.out.println(sqlEx);
+					System.out.println(sqlEx.getErrorCode());
 				}
-				//all other errors
 				catch(Exception exp)
 				{
 					System.out.println(exp);
@@ -170,5 +174,9 @@ public class Login extends JFrame {
 		
 		btn_register.setBounds(153, 195, 129, 41);
 		contentPane.add(btn_register);
+		
+		field_password = new JPasswordField();
+		field_password.setBounds(123, 121, 297, 41);
+		contentPane.add(field_password);
 	}
 }
