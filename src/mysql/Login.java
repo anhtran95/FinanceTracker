@@ -47,7 +47,8 @@ public class Login extends JFrame {
 				{
 					Login frame = new Login();
 					frame.setVisible(true);
-				} catch (Exception e) 
+				} 
+				catch (Exception e) 
 				{
 					e.printStackTrace();
 				}
