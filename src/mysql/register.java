@@ -67,7 +67,7 @@ public class Register extends JFrame
 	public Register() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 323);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,21 +81,21 @@ public class Register extends JFrame
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUsername.setBounds(12, 77, 98, 31);
+		lblUsername.setBounds(12, 74, 129, 41);
 		contentPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPassword.setBounds(12, 121, 98, 31);
+		lblPassword.setBounds(12, 142, 129, 41);
 		contentPane.add(lblPassword);
 		
 		JTextField username_textField = new JTextField();
-		username_textField.setBounds(122, 77, 266, 31);
+		username_textField.setBounds(122, 77, 297, 41);
 		contentPane.add(username_textField);
 		username_textField.setColumns(10);
 		
 		JPasswordField passwordField = new JPasswordField();
-		passwordField.setBounds(122, 121, 266, 31);
+		passwordField.setBounds(122, 145, 297, 41);
 		contentPane.add(passwordField);
 		
 		JButton accept_btn = new JButton("Accept");
@@ -158,7 +158,7 @@ public class Register extends JFrame
 			}
 		});
 		
-		accept_btn.setBounds(122, 184, 104, 31);
+		accept_btn.setBounds(12, 222, 129, 41);
 		contentPane.add(accept_btn);
 		
 		JButton cancel_btn = new JButton("Cancel");
@@ -169,8 +169,19 @@ public class Register extends JFrame
 				System.exit(0);
 			}
 		});
-		cancel_btn.setBounds(249, 184, 104, 31);
+		cancel_btn.setBounds(150, 222, 129, 41);
 		contentPane.add(cancel_btn);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Login login_window = new Login();
+				login_window.setVisible(true);
+			}
+		});
+		btnLogin.setBounds(291, 222, 129, 41);
+		contentPane.add(btnLogin);
 		
 		
 	}
