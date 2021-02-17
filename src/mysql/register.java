@@ -130,8 +130,7 @@ public class Register extends JFrame
 					{
 						JOptionPane.showMessageDialog(null, "Username is taken");
 						System.out.println("Username already exist...");
-						DebugHelper.getCurrentLine();
-						DebugHelper.getDirPath(file_name);
+						DebugHelper.getCurrentLineAndDir(file_name);
 					}
 					
 					System.out.println("Database error...");
@@ -143,8 +142,7 @@ public class Register extends JFrame
 				}
 				catch(Exception exp)
 				{
-					DebugHelper.getCurrentLine();
-					DebugHelper.getDirPath(file_name);
+					DebugHelper.getCurrentLineAndDir(file_name);
 					System.out.println(exp);
 					
 				}

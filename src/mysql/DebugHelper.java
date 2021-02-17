@@ -20,26 +20,28 @@ public class DebugHelper {
 	
 	
 	/**
-	 * print current line
+	 * Get current line and absolute path of current file
+	 * 
+	 * @param file
 	 */
-	public static void getCurrentLine()
+	public static void getCurrentLineAndDir(final String file)
 	{	
 		System.out.println("Line: " + Thread.currentThread().getStackTrace()[2].getLineNumber());
+		getDirPath(file);
 	}
 	
 	
 	/**
-	 * print absolute path for given file name
+	 * print absolute path
 	 * 
-	 * @param addr
-	 * 			file name
+	 * @param file
 	 */
-	public static void getDirPath(final String addr)
+	public static void getDirPath(final String file)
 	{
 		try
 		{
-			File file= new File(addr);
-			String absolutePath = file.getAbsolutePath();
+			File new_file= new File(file);
+			String absolutePath = new_file.getAbsolutePath();
 			System.out.println(absolutePath);
 		}
 		catch(Exception e)

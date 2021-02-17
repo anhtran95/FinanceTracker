@@ -128,8 +128,7 @@ public class Login extends JFrame {
 					{
 						JOptionPane.showMessageDialog(null, "Username is taken");
 						System.out.println("Username already exist");
-						DebugHelper.getCurrentLine();
-						DebugHelper.getDirPath(file_name);
+						DebugHelper.getCurrentLineAndDir(file_name);
 					}
 					
 					System.out.println(sqlEx);
@@ -138,8 +137,7 @@ public class Login extends JFrame {
 				catch(Exception exp)
 				{
 					System.out.println(exp);
-					DebugHelper.getCurrentLine();
-					DebugHelper.getDirPath(file_name);
+					DebugHelper.getCurrentLineAndDir(file_name);
 				}
 			}
 		});

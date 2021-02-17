@@ -49,15 +49,13 @@ public class DatabaseHelper
 			System.out.println("Failed to connect to database...");
 			System.out.println(sqlEx);
 			System.out.println(sqlEx.getErrorCode());
-			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath(file_name);
+			DebugHelper.getCurrentLineAndDir(file_name);
 		}
 		catch(Exception exp)
 		{
 			System.out.println("Failed to connect to database...");
 			System.out.println(exp);
-			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath(file_name);
+			DebugHelper.getCurrentLineAndDir(file_name);
 		}
 		
 		return connectDb;

@@ -75,8 +75,7 @@ public class PBKDF2WithHmacSHA512
 		catch(NoSuchAlgorithmException exp)
 		{
 			System.out.println("Failed to get salt...");
-			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath(file_name);
+			DebugHelper.getCurrentLineAndDir(file_name);
 			System.out.print(exp);
 		}
 		
@@ -154,8 +153,7 @@ public class PBKDF2WithHmacSHA512
 		catch(Exception e)
 		{
 			System.out.println("Failed to compare passwords...");
-			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath(file_name);
+			DebugHelper.getCurrentLineAndDir(file_name);
 			System.out.println(e);
 		}
 		
