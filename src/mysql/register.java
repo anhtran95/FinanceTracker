@@ -98,7 +98,6 @@ public class Register extends JFrame
 			{ 
 				try 
 				{
-					//create binary hashed-salt password
 					byte[] salt = PBKDF2WithHmacSHA512.salt();
 					String passwordStr = String.copyValueOf(field_password.getPassword());
 					byte[] hash = PBKDF2WithHmacSHA512.hash(passwordStr, salt);
@@ -136,15 +135,11 @@ public class Register extends JFrame
 					System.out.println("Database error...");
 					System.out.println(sqlEx);
 					System.out.println(sqlEx.getErrorCode());
-					
-					
-					
 				}
 				catch(Exception exp)
 				{
 					DebugHelper.getCurrentLineAndDir(file_name);
 					System.out.println(exp);
-					
 				}
 			}
 		});
