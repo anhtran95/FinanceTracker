@@ -17,6 +17,7 @@ import java.sql.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
 
 
 
@@ -65,35 +66,31 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 294);
+		setBounds(100, 100, 450, 249);
+		setTitle("Login");
+		
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblLogin.setBounds(12, 13, 408, 41);
-		contentPane.add(lblLogin);
-		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUsername.setBounds(12, 67, 129, 41);
+		lblUsername.setBounds(12, 13, 129, 41);
 		contentPane.add(lblUsername);
 		
 		JTextField field_username = new JTextField();
-		field_username.setBounds(123, 67, 297, 41);
+		field_username.setBounds(123, 16, 297, 41);
 		contentPane.add(field_username);
 		field_username.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPassword.setBounds(12, 121, 129, 41);
+		lblPassword.setBounds(12, 67, 129, 41);
 		contentPane.add(lblPassword);
 		
 		JPasswordField field_password = new JPasswordField();
-		field_password.setBounds(123, 121, 297, 41);
+		field_password.setBounds(123, 67, 297, 41);
 		contentPane.add(field_password);
 		
 		JButton btn_login = new JButton("Login");
@@ -101,7 +98,6 @@ public class Login extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
 				try 
 				{
 					//check database for user
@@ -113,8 +109,7 @@ public class Login extends JFrame {
 					if(results.next())
 					{
 						System.out.println("Checking password for user: " + results.getString(2));
-						
-						//compare password
+
 						byte[] db_password = results.getBytes(3);
 						byte[] db_salt = results.getBytes(4);
 						String input_password = String.valueOf(field_password.getPassword());
@@ -153,7 +148,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btn_login.setBounds(12, 195, 129, 41);
+		btn_login.setBounds(12, 151, 129, 41);
 		contentPane.add(btn_login);
 		
 		JButton btn_quit = new JButton("Quit");
@@ -164,7 +159,7 @@ public class Login extends JFrame {
 				System.exit(0);
 			}
 		});
-		btn_quit.setBounds(294, 195, 129, 41);
+		btn_quit.setBounds(294, 151, 129, 41);
 		contentPane.add(btn_quit);
 		
 		JButton btn_register = new JButton("Register");
@@ -178,8 +173,26 @@ public class Login extends JFrame {
 			}
 		});
 		
-		btn_register.setBounds(153, 195, 129, 41);
+		btn_register.setBounds(153, 151, 129, 41);
 		contentPane.add(btn_register);
+		
+		JCheckBox checkbox_showPassword = new JCheckBox("Show Password");
+		checkbox_showPassword.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				if(checkbox_showPassword.isSelected())
+				{
+					field_password.setEchoChar((char)0);
+				}
+				else
+				{
+					field_password.setEchoChar('\u2022');
+				}
+			}
+		});
+		checkbox_showPassword.setBounds(123, 117, 141, 25);
+		contentPane.add(checkbox_showPassword);
 		
 		
 	}

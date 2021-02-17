@@ -26,8 +26,7 @@ import javax.swing.JPasswordField;
  * @author Anh Tran
  * 
  * Description:
- * Create register UI, create user to add to database
- * Hashing password and store salt
+ * Create register UI, add user to database
  */
 
 
@@ -68,35 +67,31 @@ public class Register extends JFrame
 	public Register() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 323);
+		setBounds(100, 100, 450, 220);
+		setTitle("Register");
+		
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Registration");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setBounds(12, 13, 408, 51);
-		contentPane.add(lblNewLabel);
-		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUsername.setBounds(12, 74, 129, 41);
+		lblUsername.setBounds(12, 13, 129, 41);
 		contentPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPassword.setBounds(12, 142, 129, 41);
+		lblPassword.setBounds(12, 67, 129, 41);
 		contentPane.add(lblPassword);
 		
 		JTextField field_username = new JTextField();
-		field_username.setBounds(122, 77, 297, 41);
+		field_username.setBounds(122, 13, 297, 41);
 		contentPane.add(field_username);
 		field_username.setColumns(10);
 		
 		JPasswordField field_password = new JPasswordField();
-		field_password.setBounds(122, 145, 297, 41);
+		field_password.setBounds(122, 67, 297, 41);
 		contentPane.add(field_password);
 		
 		JButton btn_accept = new JButton("Accept");
@@ -111,17 +106,8 @@ public class Register extends JFrame
 					String passwordStr = String.copyValueOf(field_password.getPassword());
 					byte[] hash = PBKDF2WithHmacSHA512.hash(passwordStr, salt);
 					
-//					String saltStr = Base64.getEncoder().encodeToString(salt);
-//					String hashStr = Base64.getEncoder().encodeToString(hash);
-					
-					String saltStr = PBKDF2WithHmacSHA512.byteConvertToString(salt);
-					String hashStr = PBKDF2WithHmacSHA512.byteConvertToString(hash);
-					
 					//add user to the database
-//					Class.forName("com.mysql.cj.jdbc.Driver");
-//					Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
 					Connection connect = DatabaseHelper.createConnection();
-					
 					PreparedStatement prepState = connect.prepareStatement("insert into users(username, password, salt) values(?, ?, ?)");
 					prepState.setString(1, field_username.getText());
 					prepState.setBytes(2, hash);
@@ -132,7 +118,8 @@ public class Register extends JFrame
 					{
 						System.out.println("Register successful...");
 						JOptionPane.showMessageDialog(null, "Register Successful");
-						
+						field_username.setText("");
+						field_password.setText("");
 					}
 					else
 					{
@@ -167,7 +154,7 @@ public class Register extends JFrame
 			}
 		});
 		
-		btn_accept.setBounds(12, 222, 129, 41);
+		btn_accept.setBounds(12, 121, 129, 41);
 		contentPane.add(btn_accept);
 		
 		JButton btn_cancel = new JButton("Cancel");
@@ -179,7 +166,7 @@ public class Register extends JFrame
 				System.exit(0);
 			}
 		});
-		btn_cancel.setBounds(150, 222, 129, 41);
+		btn_cancel.setBounds(150, 121, 129, 41);
 		contentPane.add(btn_cancel);
 		
 		JButton btn_login = new JButton("Login");
@@ -193,7 +180,7 @@ public class Register extends JFrame
 				login_window.setVisible(true);
 			}
 		});
-		btn_login.setBounds(291, 222, 129, 41);
+		btn_login.setBounds(290, 121, 129, 41);
 		contentPane.add(btn_login);
 		
 		

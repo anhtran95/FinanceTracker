@@ -14,9 +14,8 @@ import javax.crypto.spec.PBEKeySpec;
 /* @author Anh Tran
  * 
  * Description:
- * PBKDF2 with HmacSHA512 password cryptography in Java.
- * Hash + salt user's password
- * 
+ * PBKDF2 with HmacSHA512 password cryptography.
+ * Hash and salt user's password
  */
 
 public class PBKDF2WithHmacSHA512 
