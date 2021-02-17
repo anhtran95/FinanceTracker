@@ -114,6 +114,11 @@ public class Login extends JFrame {
 						{
 							System.out.println("Login Successful...");
 						}
+						else
+						{
+							System.out.println("Wrong password...");
+							JOptionPane.showMessageDialog(null, "Wrong Password");
+						}
 					}
 					else
 					{
