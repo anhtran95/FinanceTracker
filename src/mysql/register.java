@@ -34,10 +34,7 @@ public class Register extends JFrame
 {
 	//debug
 	private static final String file_name = "Register.java";
-	
-	//private JPanel contentPane;
-	//private JTextField username_textField;
-	//private JPasswordField passwordField;
+
 
 	/**
 	 * Launch the application.

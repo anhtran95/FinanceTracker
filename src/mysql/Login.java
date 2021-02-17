@@ -32,12 +32,7 @@ public class Login extends JFrame {
 	
 	//debug
 	private static final String file_name = "DatabaseHelper.java";
-	
-	//private JPasswordField field_password;
 
-	//private JPanel contentPane;
-	//private JTextField textField;
-	//private JTextField textField_1;
 
 	/**
 	 * Launch the application.
