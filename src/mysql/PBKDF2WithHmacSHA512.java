@@ -21,7 +21,10 @@ import javax.crypto.spec.PBEKeySpec;
 
 public class PBKDF2WithHmacSHA512 
 {
-	
+	//debug
+	private static final String file_name = "PBKDF2WithHmacSHA512.java";	
+
+	//constants
 	private static final String ALGORITHM = 		PBKDF2WithHmacSHA512.class.getSimpleName();
 	private static final int ITERATION_COUNT = 		1000;	//bigger the number, takes longer to generate a key
 	private static final int KEY_LENGTH = 			64;		//length of derive key
@@ -74,7 +77,7 @@ public class PBKDF2WithHmacSHA512
 		{
 			System.out.println("Failed to get salt...");
 			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
+			DebugHelper.getDirPath(file_name);
 			System.out.print(exp);
 		}
 		
@@ -151,11 +154,10 @@ public class PBKDF2WithHmacSHA512
 		}
 		catch(Exception e)
 		{
-			System.out.println("Failed to perform algorithm...");
+			System.out.println("Failed to compare passwords...");
 			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath("PBKDF2WithHmacSHA512.java");
+			DebugHelper.getDirPath(file_name);
 			System.out.println(e);
-			
 		}
 		
 		return passCompare;

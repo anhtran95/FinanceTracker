@@ -15,8 +15,15 @@ import java.sql.*;
 
 public class DatabaseHelper 
 {
+	//debug
+	private static final String file_name = "DatabaseHelper.java";
 	
+	//constant
 	public static final int MYSQL_DUPLICATE_ERROR = 1062;
+	private static final String database =  "userlogin";
+	private static final String db_login_user = "root";
+	private static final String db_login_pass = "Baoanh123!";
+	
 	
 	//Private constructor to avoid instantiated	
 	private DatabaseHelper() 
@@ -33,7 +40,7 @@ public class DatabaseHelper
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connectDb = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
+			connectDb = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + database, db_login_user, db_login_pass);
 			System.out.println("Connect to database successful...");
 			return connectDb;
 		}
@@ -43,14 +50,14 @@ public class DatabaseHelper
 			System.out.println(sqlEx);
 			System.out.println(sqlEx.getErrorCode());
 			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath("DatabaseHelper.java");
+			DebugHelper.getDirPath(file_name);
 		}
 		catch(Exception exp)
 		{
 			System.out.println("Failed to connect to database...");
 			System.out.println(exp);
 			DebugHelper.getCurrentLine();
-			DebugHelper.getDirPath("DatabaseHelper.java");
+			DebugHelper.getDirPath(file_name);
 		}
 		
 		return connectDb;

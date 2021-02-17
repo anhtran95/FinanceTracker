@@ -28,7 +28,11 @@ import javax.swing.JPasswordField;
  */
 
 public class Login extends JFrame {
-	private JPasswordField field_password;
+	
+	//debug
+	private static final String file_name = "DatabaseHelper.java";
+	
+	//private JPasswordField field_password;
 
 	//private JPanel contentPane;
 	//private JTextField textField;
@@ -88,6 +92,10 @@ public class Login extends JFrame {
 		lblPassword.setBounds(12, 121, 129, 41);
 		contentPane.add(lblPassword);
 		
+		JPasswordField field_password = new JPasswordField();
+		field_password.setBounds(123, 121, 297, 41);
+		contentPane.add(field_password);
+		
 		JButton btn_login = new JButton("Login");
 		btn_login.addActionListener(new ActionListener() 
 		{
@@ -102,23 +110,20 @@ public class Login extends JFrame {
 					prepState.setString(1, field_username.getText());
 					ResultSet results = prepState.executeQuery();
 					
-					//user exist
 					if(results.next())
 					{
 						System.out.println("Checking password for user: " + results.getString(2));
 						
 						//compare password
-						String db_password = results.getString(3);
-						String db_salt = results.getString(4);
+						byte[] db_password = results.getBytes(3);
+						byte[] db_salt = results.getBytes(4);
 						String input_password = String.valueOf(field_password.getPassword());
 						
-						//questions: store byte[] as varbinary/blob/varchar
-						
-						
-						
-						
-						
-						
+						boolean password_match = PBKDF2WithHmacSHA512.authenticateString(input_password, db_salt, db_password);
+						if(password_match)
+						{
+							System.out.println("Login Successful...");
+						}
 					}
 					else
 					{
@@ -134,7 +139,7 @@ public class Login extends JFrame {
 						JOptionPane.showMessageDialog(null, "Username is taken");
 						System.out.println("Username already exist");
 						DebugHelper.getCurrentLine();
-						DebugHelper.getDirPath("Login.java");
+						DebugHelper.getDirPath(file_name);
 					}
 					
 					System.out.println(sqlEx);
@@ -144,7 +149,7 @@ public class Login extends JFrame {
 				{
 					System.out.println(exp);
 					DebugHelper.getCurrentLine();
-					DebugHelper.getDirPath("Login.java");
+					DebugHelper.getDirPath(file_name);
 				}
 			}
 		});
@@ -176,8 +181,6 @@ public class Login extends JFrame {
 		btn_register.setBounds(153, 195, 129, 41);
 		contentPane.add(btn_register);
 		
-		field_password = new JPasswordField();
-		field_password.setBounds(123, 121, 297, 41);
-		contentPane.add(field_password);
+		
 	}
 }

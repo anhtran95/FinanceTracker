@@ -33,7 +33,8 @@ import javax.swing.JPasswordField;
 
 public class Register extends JFrame 
 {
-	//private static final int MYSQL_DUPLICATE_ERROR = 1062;
+	//debug
+	private static final String file_name = "Register.java";
 	
 	//private JPanel contentPane;
 	//private JTextField username_textField;
@@ -116,16 +117,15 @@ public class Register extends JFrame
 					String saltStr = PBKDF2WithHmacSHA512.byteConvertToString(salt);
 					String hashStr = PBKDF2WithHmacSHA512.byteConvertToString(hash);
 					
-					//create user
+					//add user to the database
 //					Class.forName("com.mysql.cj.jdbc.Driver");
 //					Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "Baoanh123!");
 					Connection connect = DatabaseHelper.createConnection();
 					
-					//add user to the database
 					PreparedStatement prepState = connect.prepareStatement("insert into users(username, password, salt) values(?, ?, ?)");
 					prepState.setString(1, field_username.getText());
-					prepState.setString(2, hashStr);
-					prepState.setString(3, saltStr);
+					prepState.setBytes(2, hash);
+					prepState.setBytes(3, salt);
 					
 					int execute_value = prepState.executeUpdate();
 					if(execute_value > 0)
@@ -147,7 +147,7 @@ public class Register extends JFrame
 						JOptionPane.showMessageDialog(null, "Username is taken");
 						System.out.println("Username already exist...");
 						DebugHelper.getCurrentLine();
-						DebugHelper.getDirPath("Register.java");
+						DebugHelper.getDirPath(file_name);
 					}
 					
 					System.out.println("Database error...");
@@ -160,7 +160,7 @@ public class Register extends JFrame
 				catch(Exception exp)
 				{
 					DebugHelper.getCurrentLine();
-					DebugHelper.getDirPath("Register.java");
+					DebugHelper.getDirPath(file_name);
 					System.out.println(exp);
 					
 				}
@@ -175,6 +175,7 @@ public class Register extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				System.out.println("Quit Register...");
 				System.exit(0);
 			}
 		});
@@ -186,6 +187,7 @@ public class Register extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				System.out.println("Transition to Login window...");
 				dispose();
 				Login login_window = new Login();
 				login_window.setVisible(true);
