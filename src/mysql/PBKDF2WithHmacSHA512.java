@@ -141,7 +141,7 @@ public class PBKDF2WithHmacSHA512
 	 * @throws Exception
 	 *             If the algorithm cannot be performed.
 	 */
-	public static boolean authenticateString(final String attemptedPassword,
+	public static boolean authenticatePassword(final String attemptedPassword,
 											 final byte[] salt,
 											 final byte[] hashedPassword)
 	{

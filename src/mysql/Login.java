@@ -109,7 +109,7 @@ public class Login extends JFrame {
 						byte[] db_salt = results.getBytes(4);
 						String input_password = String.valueOf(field_password.getPassword());
 						
-						boolean password_match = PBKDF2WithHmacSHA512.authenticateString(input_password, db_salt, db_password);
+						boolean password_match = PBKDF2WithHmacSHA512.authenticatePassword(input_password, db_salt, db_password);
 						if(password_match)
 						{
 							System.out.println("Login Successful...");
